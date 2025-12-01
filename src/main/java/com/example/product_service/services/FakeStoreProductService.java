@@ -19,9 +19,10 @@ public class FakeStoreProductService implements IProductService{
 
     @Override
     public Product getProductById(Long id) {
-        FakeStoreProductDto dto = restTemplate.getForObject("https://fakestoreapi.com/products/1", FakeStoreProductDto.class);
-        Product product = convertFakeStoreDtoToProduct(dto);
-        return product;
+        FakeStoreProductDto dto = restTemplate.getForObject(
+                "https://fakestoreapi.com/products/1",
+                FakeStoreProductDto.class);
+        return convertFakeStoreDtoToProduct(dto);
     }
 
     @Override
