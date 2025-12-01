@@ -1,6 +1,7 @@
 package com.example.product_service.controllers;
 
 import com.example.product_service.models.Product;
+import com.example.product_service.services.IProductService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,9 +9,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
+
+    private IProductService productService;
+
+    public ProductController(IProductService productService){
+        this.productService = productService;
+    }
+
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable("id") Long id){
-        return null;
+        return this.productService.getProductById(id);
     }
 
     @GetMapping()
