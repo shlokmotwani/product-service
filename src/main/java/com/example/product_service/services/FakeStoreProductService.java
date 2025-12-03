@@ -1,6 +1,7 @@
 package com.example.product_service.services;
 
 import com.example.product_service.dtos.FakeStoreProductDto;
+import com.example.product_service.exceptions.ProductNotFoundException;
 import com.example.product_service.models.Category;
 import com.example.product_service.models.Product;
 import org.springframework.stereotype.Service;
@@ -20,11 +21,19 @@ public class FakeStoreProductService implements IProductService{
     }
 
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(Long id) throws ProductNotFoundException {
         FakeStoreProductDto dto = restTemplate.getForObject(
-                "https://fakestoreapi.com/products/1",
+                "https://fakestoreapi.com/products/" + id,
                 FakeStoreProductDto.class);
-        return convertFakeStoreDtoToProduct(dto);
+        if(dto == null){
+            throw new ProductNotFoundException(String.format("Product with id: %s does not exist in the DB", id));
+        }
+        return convertFakeStoreProductDtoToProduct(dto);
+
+
+//        System.out.println("THIS LINE IS EXECUTED");
+//        throw new RuntimeException();
+
     }
 
     @Override
@@ -35,7 +44,7 @@ public class FakeStoreProductService implements IProductService{
         );
         List<Product> listOfProducts = new ArrayList<>();
         for(FakeStoreProductDto dto: productDtos){
-            listOfProducts.add(convertFakeStoreDtoToProduct(dto));
+            listOfProducts.add(convertFakeStoreProductDtoToProduct(dto));
         }
         return listOfProducts;
     }
@@ -55,7 +64,7 @@ public class FakeStoreProductService implements IProductService{
         return null;
     }
 
-    public Product convertFakeStoreDtoToProduct(FakeStoreProductDto dto){
+    public Product convertFakeStoreProductDtoToProduct(FakeStoreProductDto dto){
         Product product = new Product();
         product.setTitle(dto.getTitle());
         product.setDescription(dto.getDescription());

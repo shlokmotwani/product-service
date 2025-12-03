@@ -1,7 +1,11 @@
 package com.example.product_service.controllers;
 
+import com.example.product_service.exceptions.ProductNotFoundException;
 import com.example.product_service.models.Product;
 import com.example.product_service.services.IProductService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,13 +21,23 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable("id") Long id){
+    public Product getProductById(@PathVariable("id") Long id) throws ProductNotFoundException {
         return this.productService.getProductById(id);
     }
 
     @GetMapping()
-    public List<Product> getAllProducts(){
-        return this.productService.getAllProducts();
+    public ResponseEntity<List<Product>> getAllProducts(){
+        ResponseEntity<List<Product>> response = null;
+        try {
+            List<Product> products = this.productService.getAllProducts();
+            response = new ResponseEntity<>(products,
+                    HttpStatus.OK);
+
+        }
+        catch(Exception e){
+            response = new ResponseEntity<>((HttpHeaders) null, HttpStatus.BAD_REQUEST);
+        }
+        return response;
     }
 
     @PutMapping
