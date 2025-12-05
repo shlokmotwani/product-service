@@ -32,7 +32,6 @@ public class ProductController {
             List<Product> products = this.productService.getAllProducts();
             response = new ResponseEntity<>(products,
                     HttpStatus.OK);
-
         }
         catch(Exception e){
             response = new ResponseEntity<>((HttpHeaders) null, HttpStatus.BAD_REQUEST);

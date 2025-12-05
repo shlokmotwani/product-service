@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class FakeStoreProductService implements IProductService{
