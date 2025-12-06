@@ -51,12 +51,32 @@ public class SelfProductService implements IProductService{
     }
 
     @Override
-    public Product replaceProduct(Long id, Product product) {
-        return null;
+    public Product replaceProduct(Long id, Product product) throws ProductNotFoundException {
+        Optional<Product> productOptional = productRepository.findById(id);
+        if(productOptional.isEmpty()){
+            throw new ProductNotFoundException(String.format("Product with id: %s does not exist.", id));
+        }
+
+        Product productFromDb = productOptional.get();
+        productFromDb.setTitle(product.getTitle());
+        productFromDb.setPrice(product.getPrice());
+        productFromDb.setDescription(product.getDescription());
+        productFromDb.setImageUrl(product.getImageUrl());
+
+        Category category = product.getCategory();
+        Optional<Category> categoryInDB = categoryRepository.findByName(category.getName());
+        if(categoryInDB.isEmpty()){
+            categoryRepository.save(category);
+        }
+        else{
+            category = categoryInDB.get();
+        }
+        productFromDb.setCategory(category);
+        return productRepository.save(productFromDb);
     }
 
     @Override
-    public Product editProduct(Long id, Product product) {
+    public Product updateProduct(Long id, Product product) {
         return null;
     }
 

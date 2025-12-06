@@ -62,7 +62,7 @@ public class FakeStoreProductService implements IProductService{
     }
 
     @Override
-    public Product editProduct(Long id, Product product) {
+    public Product updateProduct(Long id, Product product) {
         return null;
     }
 

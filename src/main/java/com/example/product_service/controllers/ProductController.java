@@ -50,12 +50,12 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public Product replaceProduct(Long id){
-        return null;
+    public Product replaceProduct(@PathVariable("id") Long id, @RequestBody Product product) throws ProductNotFoundException {
+        return productService.replaceProduct(id, product);
     }
 
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable("id") Long id){
-        this.productService.deleteProduct(id);
+        productService.deleteProduct(id);
     }
 }
