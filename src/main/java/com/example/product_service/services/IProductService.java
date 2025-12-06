@@ -1,5 +1,6 @@
 package com.example.product_service.services;
 
+import com.example.product_service.dtos.ProductPatchDTO;
 import com.example.product_service.exceptions.ProductNotFoundException;
 import com.example.product_service.models.Product;
 
@@ -11,7 +12,7 @@ public interface IProductService {
     Product createProduct(Product product);
     Product replaceProduct(Long id, Product product) throws ProductNotFoundException;
 
-    Product updateProduct(Long id, Product product);
+    Product patchProduct(Long id, ProductPatchDTO productPatchDTO) throws ProductNotFoundException;
 
     void deleteProduct(Long id);
 }

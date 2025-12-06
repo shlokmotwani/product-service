@@ -1,5 +1,6 @@
 package com.example.product_service.services;
 
+import com.example.product_service.dtos.ProductPatchDTO;
 import com.example.product_service.exceptions.ProductNotFoundException;
 import com.example.product_service.models.Category;
 import com.example.product_service.models.Product;
@@ -57,11 +58,11 @@ public class SelfProductService implements IProductService{
             throw new ProductNotFoundException(String.format("Product with id: %s does not exist.", id));
         }
 
-        Product productFromDb = productOptional.get();
-        productFromDb.setTitle(product.getTitle());
-        productFromDb.setPrice(product.getPrice());
-        productFromDb.setDescription(product.getDescription());
-        productFromDb.setImageUrl(product.getImageUrl());
+        Product productInDB = productOptional.get();
+        productInDB.setTitle(product.getTitle());
+        productInDB.setPrice(product.getPrice());
+        productInDB.setDescription(product.getDescription());
+        productInDB.setImageUrl(product.getImageUrl());
 
         Category category = product.getCategory();
         Optional<Category> categoryInDB = categoryRepository.findByName(category.getName());
@@ -71,13 +72,46 @@ public class SelfProductService implements IProductService{
         else{
             category = categoryInDB.get();
         }
-        productFromDb.setCategory(category);
-        return productRepository.save(productFromDb);
+        productInDB.setCategory(category);
+        return productRepository.save(productInDB);
     }
 
     @Override
-    public Product updateProduct(Long id, Product product) {
-        return null;
+    public Product patchProduct(Long id, ProductPatchDTO productPatchDTO) throws ProductNotFoundException {
+        Optional<Product> productOptional = productRepository.findById(id);
+        if(productOptional.isEmpty()){
+            throw new ProductNotFoundException(String.format("Product with id: %s does not exist.", id));
+        }
+        
+        Product productInDB = productOptional.get();
+        if(productPatchDTO.getTitle() != null){
+            productInDB.setTitle(productPatchDTO.getTitle());
+        }
+
+        if(productPatchDTO.getPrice() == 0.0){
+            productInDB.setPrice(productPatchDTO.getPrice());
+        }
+
+        if(productPatchDTO.getDescription() != null){
+            productInDB.setDescription(productPatchDTO.getDescription());
+        }
+
+        if(productPatchDTO.getImageUrl() != null){
+            productInDB.setImageUrl(productPatchDTO.getImageUrl());
+        }
+        
+        if(productPatchDTO.getCategory() != null){
+            Category category = productPatchDTO.getCategory();
+            Optional<Category> categoryInDB = categoryRepository.findByName(category.getName());
+            if(categoryInDB.isEmpty()){
+                categoryRepository.save(category);
+            }
+            else{
+                category = categoryInDB.get();
+            }
+            productInDB.setCategory(category);
+        }
+        return productRepository.save(productInDB);
     }
 
     @Override

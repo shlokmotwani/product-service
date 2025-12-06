@@ -1,5 +1,6 @@
 package com.example.product_service.controllers;
 
+import com.example.product_service.dtos.ProductPatchDTO;
 import com.example.product_service.exceptions.ProductNotFoundException;
 import com.example.product_service.models.Product;
 import com.example.product_service.services.IProductService;
@@ -45,8 +46,8 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}")
-    public Product updateProduct(@PathVariable("id") Long id){
-        return null;
+    public Product patchProduct(@PathVariable("id") Long id, @RequestBody ProductPatchDTO productPatchDTO) throws ProductNotFoundException {
+        return productService.patchProduct(id, productPatchDTO);
     }
 
     @PutMapping("/{id}")
