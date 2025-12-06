@@ -62,6 +62,11 @@ public class FakeStoreProductService implements IProductService{
     }
 
     @Override
+    public Product editProduct(Long id, Product product) {
+        return null;
+    }
+
+    @Override
     public void deleteProduct(Long id) {
         return;
     }
