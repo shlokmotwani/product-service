@@ -4,8 +4,10 @@ import com.example.product_service.dtos.ProductPatchDTO;
 import com.example.product_service.exceptions.ProductNotFoundException;
 import com.example.product_service.models.Category;
 import com.example.product_service.models.Product;
+import com.example.product_service.projections.ProductWithTitleAndPrice;
 import com.example.product_service.repositories.CategoryRepository;
 import com.example.product_service.repositories.ProductRepository;
+import jakarta.persistence.Tuple;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -118,4 +120,8 @@ public class SelfProductService implements IProductService{
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
+
+//    public List<ProductWithTitleAndPrice> getAllProductsWithTitleAndPrice(){
+//        return productRepository.getAllProductWithTitleAndPrice();
+//    }
 }

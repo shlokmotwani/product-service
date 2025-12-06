@@ -5,6 +5,8 @@ import com.example.product_service.dtos.ProductPatchDTO;
 import com.example.product_service.exceptions.ProductNotFoundException;
 import com.example.product_service.models.Category;
 import com.example.product_service.models.Product;
+import com.example.product_service.projections.ProductWithTitleAndPrice;
+import jakarta.persistence.Tuple;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -68,6 +70,12 @@ public class FakeStoreProductService implements IProductService{
     public void deleteProduct(Long id) {
         return;
     }
+
+    // implement if needed
+//    @Override
+//    public List<ProductWithTitleAndPrice> getAllProductsWithTitleAndPrice() {
+//        return null;
+//    }
 
     public Product convertFakeStoreProductDtoToProduct(FakeStoreProductDTO dto){
         Product product = new Product();
