@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 @Primary
 public class SelfProductService implements IProductService{
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     public SelfProductService(ProductRepository productRepository){
         this.productRepository = productRepository;
@@ -29,7 +29,7 @@ public class SelfProductService implements IProductService{
 
     @Override
     public List<Product> getAllProducts() {
-        return List.of();
+        return productRepository.findAll();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class SelfProductService implements IProductService{
     }
 
     @Override
-    public Product deleteProduct(Long id) {
-        return null;
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
     }
 }

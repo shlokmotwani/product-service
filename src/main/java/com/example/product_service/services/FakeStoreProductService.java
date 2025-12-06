@@ -4,6 +4,7 @@ import com.example.product_service.dtos.FakeStoreProductDto;
 import com.example.product_service.exceptions.ProductNotFoundException;
 import com.example.product_service.models.Category;
 import com.example.product_service.models.Product;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -61,8 +62,8 @@ public class FakeStoreProductService implements IProductService{
     }
 
     @Override
-    public Product deleteProduct(Long id) {
-        return null;
+    public void deleteProduct(Long id) {
+        return;
     }
 
     public Product convertFakeStoreProductDtoToProduct(FakeStoreProductDto dto){
