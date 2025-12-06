@@ -1,5 +1,6 @@
 package com.example.product_service.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -9,10 +10,10 @@ import java.util.List;
 
 @Setter
 @Getter
-@Entity
+@Entity(name = "categories")
 public class Category extends BaseModel{
     private String name;
 
-//    @OneToMany(mappedBy = "category")
+//    @OneToMany(mappedBy = "category", cascade = {CascadeType.REMOVE})
 //    private List<Product> products;
 }

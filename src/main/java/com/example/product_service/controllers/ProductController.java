@@ -5,6 +5,7 @@ import com.example.product_service.exceptions.ProductNotFoundException;
 import com.example.product_service.models.Product;
 import com.example.product_service.projections.ProductWithTitleAndPrice;
 import com.example.product_service.services.IProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class ProductController {
 
     private final IProductService productService;
 
-    public ProductController(IProductService productService){
+    public ProductController(@Qualifier("selfProductService") IProductService productService){
         this.productService = productService;
     }
 

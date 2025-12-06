@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "products")
 public class Product extends BaseModel{
     private String title;
     private double price;
