@@ -1,6 +1,6 @@
 # 🛍️ E-Commerce Product Microservice
 
-A backend microservice built with **Java** and **Spring Boot** that manages product data. It integrates with the [Fake Store API](https://fakestoreapi.com/) to seed or fetch remote product information and persists it into a local database using **Spring Data JPA** for reliable storage and querying.
+A backend microservice built with **Java** and **Spring Boot** designed to handle product inventory. The application features a dual-service architecture that separates external data fetching from internal data management, ensuring a clear separation of concerns.
 
 ## 🚀 Key Features
 
